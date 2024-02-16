@@ -39,7 +39,7 @@ fun EnterAgeScreen(vm: MainViewModel) {
         )
         Button(onClick = {
             vm.validateAge(currentAge)
-            if(vm.ageIsCorrect.value)
+            if (vm.ageIsCorrect.value)
                 vm.saveAge()
             else
                 Toast.makeText(ctx, "Incorrect input", Toast.LENGTH_SHORT).show()

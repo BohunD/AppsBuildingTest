@@ -29,20 +29,26 @@ class MainViewModel @Inject constructor(
     private val _ageFromPrefs = MutableStateFlow("")
     val ageFromPrefs: Flow<String> get() = _ageFromPrefs
 
-    private val _numIsCorrect = mutableStateOf(true)
+    private val _ageIsCorrect = mutableStateOf(true)
     val ageIsCorrect: State<Boolean>
-        get() = _numIsCorrect
+        get() = _ageIsCorrect
 
-
-    fun setCurrentName(name: String){
-        _currentName.value = name
-    }
+    private val _nameIsCorrect = mutableStateOf(true)
+    val nameIsCorrect: State<Boolean>
+        get() = _nameIsCorrect
 
     fun validateAge(age: String) {
-        _numIsCorrect.value = !(age.isEmpty() || !isDigit(age))
+        _ageIsCorrect.value = !(age.isEmpty() || !isDigit(age))
+    }
+    fun validateName(name: String) {
+        _nameIsCorrect.value = name.isNotEmpty()
     }
     private fun isDigit(value: String): Boolean {
         return value.all { it.isDigit() }
+    }
+    fun setCurrentName(name: String){
+        validateName(name)
+        _currentName.value = name
     }
     fun setCurrentAge(age: String){
         validateAge(age)
